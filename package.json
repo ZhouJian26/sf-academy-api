@@ -1,0 +1,23 @@
+{
+  "name": "sf-academy-api",
+  "version": "1.0.0",
+  "description": "sf-academy-api",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zhoujian26/sf-academy-api.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "author": "Zhou Jian",
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.5",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-openapi": "^7.0.0",
+    "grpc": "^1.24.3"
+  }
+}
