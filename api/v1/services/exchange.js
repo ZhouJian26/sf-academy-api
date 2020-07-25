@@ -21,7 +21,22 @@ function ExchangeMicroservice(url) {
 }
 ExchangeMicroservice.prototype.getRates = function getRates() {
   return new Promise((res, rej) => {
-    this.client.rates({}, (err, response) => res(response.rates));
+    this.client.rates({}, (err, response) =>
+      err ? rej(err) : res(response.rates)
+    );
+  });
+};
+
+ExchangeMicroservice.prototype.getExchange = function getExchange(
+  value,
+  from,
+  to
+) {
+  return new Promise((res, rej) => {
+    this.client.exchange(
+      { value: value, from: from, to: to },
+      (err, response) => (err ? rej(err) : res(response.value))
+    );
   });
 };
 
