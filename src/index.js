@@ -1,37 +1,10 @@
 "use strict";
-
-const EXCHANGE_PROTO_PATH =
-  __dirname + "/../sf-academy-proto/src/exchange.proto";
-
-const grpc = require("grpc");
-const protoLoader = require("@grpc/proto-loader");
 const express = require("express");
 const bodyParser = require("body-parser");
 const { initialize } = require("express-openapi");
 const { join } = require("path");
-const exchangePackageDefinition = protoLoader.loadSync(EXCHANGE_PROTO_PATH, {
-  keepCase: true,
-  longs: String,
-  enums: String,
-  defaults: true,
-  oneofs: true,
-});
 
-const exchange_proto = grpc.loadPackageDefinition(exchangePackageDefinition)
-  .exchange;
-
-const operations = {
-  getExchangeRates: (req, res, next) => {
-    const exchangeMicroservice = new exchange_proto.Exchange(
-      "exchange_microservice:9000",
-      grpc.credentials.createInsecure()
-    );
-    exchangeMicroservice.rates({}, (err, response) => {
-      res.json(response.rates);
-    });
-  },
-};
-
+const exchangeMicroservice = require("../api/v1/services/exchange");
 const app = express();
 app.use(bodyParser.json());
 
@@ -41,11 +14,14 @@ initialize({
     // only handles errors for /v3/*
     res.json(err);
   },
-  apiDoc: join(__dirname, "../docs/openapi.yaml"),
+  apiDoc: join(__dirname, "../api/v1/api-doc.yml"),
   dependencies: {
     log: console.log,
+    exchangeMicroservice: new exchangeMicroservice(
+      "exchange_microservice:9000"
+    ),
   },
-  operations,
+  paths: __dirname + "/../api/v1/paths",
 });
 
 app.listen(3000, () => {
