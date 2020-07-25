@@ -14,6 +14,26 @@ const Exchange = (exchangeMicroservice) => {
     summary: "Exchange the sum of money in another currency",
     operationId: "getExchange",
     produces: ["application/json"],
+    parameters: [
+      {
+        in: "query",
+        name: "value",
+        required: true,
+        type: "number",
+      },
+      {
+        in: "query",
+        name: "from",
+        required: true,
+        type: "string",
+      },
+      {
+        in: "query",
+        name: "to",
+        required: true,
+        type: "string",
+      },
+    ],
     responses: {
       200: {
         description: "Successful operation",
@@ -25,6 +45,7 @@ const Exchange = (exchangeMicroservice) => {
               description: "Converted value",
             },
           },
+          required: ["value"],
         },
       },
       default: {
