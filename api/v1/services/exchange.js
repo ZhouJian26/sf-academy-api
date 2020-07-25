@@ -35,7 +35,7 @@ ExchangeMicroservice.prototype.getExchange = function getExchange(
   return new Promise((res, rej) => {
     this.client.exchange(
       { value: value, from: from, to: to },
-      (err, response) => (err ? rej(err) : res(response.value))
+      (err, response) => (err ? rej(err) : res(response))
     );
   });
 };
