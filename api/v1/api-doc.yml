@@ -1,0 +1,27 @@
+swagger: "2.0"
+
+info:
+  title: "Exchange App (sf-academy)"
+  description: "This is the server for Exchange App"
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    name: "Exchange App Support"
+    email: "support@sf-academy-exchange.io"
+  license:
+    name: "Apache 2.0"
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+
+basePath: "/v1"
+
+tags:
+  - name: "exchange"
+    description: "Everithing about exchange currency"
+
+paths: {}
+
+definitions:
+  Error:
+    properties:
+      message:
+        type: "string"
