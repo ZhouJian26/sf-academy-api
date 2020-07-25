@@ -1,9 +1,13 @@
 "use strict";
 const Rates = (exchangeMicroservice) => {
   const operations = { GET };
-  async function GET(req, res, next) {
-    const rates = await exchangeMicroservice.getRates();
-    res.status(200).json(rates);
+  function GET(req, res, next) {
+    exchangeMicroservice
+      .getRates()
+      .then((data) => res.status(200).json(data))
+      .catch((err) => {
+        res.status(400).json({ message: err.details });
+      });
   }
   GET.apiDoc = {
     tags: ["exchange"],
