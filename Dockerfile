@@ -7,7 +7,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY sf-academy-proto/ sf-academy-proto/
-COPY docs/ docs/
+COPY api/ api/
 COPY src/index.js src/
 
 EXPOSE 3000
