@@ -4,7 +4,11 @@ const bodyParser = require("body-parser");
 const { initialize } = require("express-openapi");
 const { join } = require("path");
 
+require("dotenv").config();
+
 const exchangeMicroservice = require("./services/exchange");
+const userMicroservice = require("./services/user");
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -17,9 +21,8 @@ initialize({
   apiDoc: join(__dirname, "./api/v1/api-doc.yml"),
   dependencies: {
     log: console.log,
-    exchangeMicroservice: new exchangeMicroservice(
-      "exchange_microservice:9000"
-    ),
+    exchangeMicroservice: new exchangeMicroservice(process.env.EXCHANGE_URL),
+    userMicroservice: new userMicroservice(process.env.USER_URL),
   },
   paths: __dirname + "/api/v1/paths",
 });
