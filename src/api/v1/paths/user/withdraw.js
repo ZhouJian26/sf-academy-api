@@ -1,7 +1,14 @@
 const Withdraw = (userMicroservice) => {
   const operations = { PUT };
   function PUT(req, res, next) {
-    res.json({ message: "hello there" });
+    const { amount, currency } = req.body;
+    const { token } = req.headers;
+    userMicroservice
+      .withdraw(token, currency, amount)
+      .then(() => {
+        res.json({ message: `Success withdraw ${amount} ${currency}` });
+      })
+      .catch((err) => res.status(400).json({ message: err.details }));
   }
   PUT.apiDoc = {
     tags: ["user"],
