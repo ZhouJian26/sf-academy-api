@@ -23,7 +23,7 @@ const Deposit = (userMicroservice) => {
           properties: {
             amount: {
               type: "number",
-              minimum: 0,
+              minimum: 0.01,
               multipleOf: 0.01,
             },
             currency: { type: "string" },

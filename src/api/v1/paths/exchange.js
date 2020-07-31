@@ -20,6 +20,8 @@ const Exchange = (exchangeMicroservice) => {
         name: "value",
         required: true,
         type: "number",
+        minimum: 0.01,
+        multipleOf: 0.01,
       },
       {
         in: "query",
