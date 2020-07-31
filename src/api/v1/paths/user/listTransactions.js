@@ -1,7 +1,14 @@
 const ListTransactions = (userMicroservice) => {
   const operations = { GET };
   function GET(req, res, next) {
-    res.json({ message: "hello there" });
+    const { queries } = req.body;
+    const { token } = req.headers;
+    userMicroservice
+      .listTransactions(token, queries)
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => res.status(400).json({ message: err.details }));
   }
   GET.apiDoc = {
     tags: ["user"],
