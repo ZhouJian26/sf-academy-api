@@ -13,7 +13,7 @@ const Rates = (exchangeMicroservice) => {
     tags: ["exchange"],
     description: "Get current currency rates",
     summary: "Get current currency rates",
-    operationId: "getExchangeRates",
+    operationId: "exchangeRates",
     produces: ["application/json"],
     responses: {
       200: {
