@@ -1,7 +1,17 @@
 const Deposit = (userMicroservice) => {
   const operations = { PUT };
   function PUT(req, res, next) {
-    res.json({ message: "hello there" });
+    const { amount, currency } = req.body;
+    const { token } = req.headers;
+    userMicroservice
+      .deposit(token, currency, amount)
+      .then(() => {
+        res.json({ message: `Success deposit ${amount} ${currency}` });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json({ message: err.details });
+      });
   }
   PUT.apiDoc = {
     tags: ["user"],
