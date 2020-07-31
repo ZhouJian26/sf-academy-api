@@ -1,9 +1,18 @@
 const Buy = (userMicroservice) => {
-  const operations = { PUT };
-  function PUT(req, res, next) {
-    res.json({ message: "hello there" });
+  const operations = { POST };
+  function POST(req, res, next) {
+    const { amount, srcCurrency, destCurrency } = req.body;
+    const { token } = req.headers;
+    userMicroservice
+      .buy(token, srcCurrency, destCurrency, amount)
+      .then(() => {
+        res.json({
+          message: `Success buy ${amount} ${srcCurrency} => ${destCurrency}`,
+        });
+      })
+      .catch((err) => res.status(400).json({ message: err.details }));
   }
-  PUT.apiDoc = {
+  POST.apiDoc = {
     tags: ["user"],
     description: "Convert an amount of a target currency into another one",
     summary: "Convert an amount of a target currency into another one",
