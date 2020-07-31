@@ -27,3 +27,9 @@ definitions:
     properties:
       message:
         type: "string"
+
+securityDefinitions:
+  apiKey:
+    type: apiKey
+    in: header
+    name: token
