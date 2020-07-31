@@ -16,7 +16,9 @@ basePath: "/v1"
 
 tags:
   - name: "exchange"
-    description: "Everithing about exchange currency"
+    description: "Everything about exchange currency"
+  - name: "user"
+    description: "Everything about user"
 
 paths: {}
 
