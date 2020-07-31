@@ -36,6 +36,12 @@ const Login = (userMicroservice) => {
             },
           },
         },
+        headers: {
+          token: {
+            type: "string",
+            description: "User token",
+          },
+        },
       },
       default: {
         description: "An error occurred",
