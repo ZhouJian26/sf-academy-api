@@ -1,9 +1,19 @@
 const Login = (userMicroservice) => {
-  const operations = { POST };
-  function POST(req, res, next) {
-    res.json({ message: "hello there" });
+  const operations = { PUT };
+  function PUT(req, res, next) {
+    const { email, password } = req.body;
+    userMicroservice
+      .login(email, password)
+      .then((data) => {
+        res.cookie("token", data.token, {
+          maxAge: 60 * 60 * 24 * 365,
+          httpOnly: true,
+        });
+        res.json({ message: "Success login" });
+      })
+      .catch((err) => res.status(400).json({ message: err.details }));
   }
-  POST.apiDoc = {
+  PUT.apiDoc = {
     tags: ["user"],
     description: "Login a user",
     summary: "Login a user",
