@@ -1,7 +1,17 @@
 const Signup = (userMicroservice) => {
   const operations = { POST };
   function POST(req, res, next) {
-    res.json({ message: "hello there" });
+    const { email, password, iban, username } = req.body;
+    userMicroservice
+      .signup(email, password, username, iban)
+      .then((data) => {
+        res.cookie("token", data.token, {
+          maxAge: 60 * 60 * 24 * 365,
+          httpOnly: true,
+        });
+        res.json({ message: "Success signup and logged" });
+      })
+      .catch((err) => res.status(400).json({ message: err.details }));
   }
   POST.apiDoc = {
     tags: ["user"],
