@@ -10,6 +10,7 @@ const Buy = (userMicroservice) => {
     operationId: "userBuy",
     consumes: ["application/json"],
     produces: ["application/json"],
+    security: [{ JWTAuth: [] }],
     parameters: [
       {
         in: "body",

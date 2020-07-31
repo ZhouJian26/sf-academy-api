@@ -10,6 +10,7 @@ const ListTransactions = (userMicroservice) => {
     operationId: "userListTransactions",
     consumes: ["application/json"],
     produces: ["application/json"],
+    security: [{ JWTAuth: [] }],
     parameters: [
       {
         in: "body",

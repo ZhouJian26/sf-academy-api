@@ -12,6 +12,7 @@ const Deposit = (userMicroservice) => {
     operationId: "userDeposit",
     consumes: ["application/json"],
     produces: ["application/json"],
+    security: [{ JWTAuth: [] }],
     parameters: [
       {
         in: "body",
