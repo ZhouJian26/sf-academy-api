@@ -12,13 +12,20 @@ const userMicroservice = require("./services/user");
 const app = express();
 app.use(bodyParser.json());
 
+const securityHandlers = {
+  JWTAuth: (req, scopes, definition) => {
+    if (req.headers["token"] == undefined) return Promise.resolve(false);
+    return Promise.resolve(true);
+  },
+};
+
 initialize({
   app,
   errorMiddleware: (err, req, res, next) => {
-    // only handles errors for /v3/*
     res.json(err);
   },
   apiDoc: join(__dirname, "./api/v1/api-doc.yml"),
+  securityHandlers: securityHandlers,
   dependencies: {
     log: console.log,
     exchangeMicroservice: new exchangeMicroservice(process.env.EXCHANGE_URL),
