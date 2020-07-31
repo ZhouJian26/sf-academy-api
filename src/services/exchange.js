@@ -1,4 +1,4 @@
-const PROTO_PATH = __dirname + "/../../../sf-academy-proto/src/exchange.proto";
+const PROTO_PATH = __dirname + "/../../sf-academy-proto/src/exchange.proto";
 
 const grpc = require("grpc");
 const protoLoader = require("@grpc/proto-loader");
