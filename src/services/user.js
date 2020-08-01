@@ -134,5 +134,21 @@ UserMicroservice.prototype.listTransactions = function listTransactions(
     );
   });
 };
+UserMicroservice.prototype.listVirtualPortfolios = function listVirtualPortfolios(
+  token
+) {
+  return new Promise((res, rej) => {
+    const metadata = new grpc.Metadata();
+    metadata.add("token", token);
+    this.getClientGRPC().listVirtualPortfolios(
+      {},
+      metadata,
+      (err, response) => {
+        if (err) return rej(err);
+        res(response);
+      }
+    );
+  });
+};
 
 module.exports = UserMicroservice;
