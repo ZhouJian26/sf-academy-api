@@ -1,8 +1,16 @@
 const ListTransactions = (userMicroservice) => {
   const operations = { GET };
   function GET(req, res, next) {
-    const { queries } = req.body;
+    const { srcCurrency, destCurrency, startDate, endDate } = req.query;
     const { token } = req.cookies;
+    queries = [
+      {
+        srcCurrency: srcCurrency,
+        destCurrency: destCurrency,
+        startDate: startDate,
+        endDate: endDate,
+      },
+    ];
     userMicroservice
       .listTransactions(token, queries)
       .then((data) => {
@@ -15,33 +23,13 @@ const ListTransactions = (userMicroservice) => {
     description: "Get user transactions. Optional: based on a filter object",
     summary: "Get user transactions. Optional: based on a filter object",
     operationId: "userListTransactions",
-    consumes: ["application/json"],
     produces: ["application/json"],
     security: [{ JWTAuth: [] }],
     parameters: [
-      {
-        in: "body",
-        name: "body",
-        required: true,
-        schema: {
-          type: "object",
-          properties: {
-            queries: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  srcCurrency: { type: "string" },
-                  destCurrency: { type: "string" },
-                  startDate: { type: "string", format: "date-time" },
-                  endDate: { type: "string", format: "date-time" },
-                },
-              },
-            },
-          },
-          required: ["queries"],
-        },
-      },
+      { in: "query", name: "srcCurrency", type: "string" },
+      { in: "query", name: "destCurrency", type: "string" },
+      { in: "query", name: "startDate", type: "string", format: "date-time" },
+      { in: "query", name: "endDate", type: "string", format: "date-time" },
     ],
     responses: {
       200: {
