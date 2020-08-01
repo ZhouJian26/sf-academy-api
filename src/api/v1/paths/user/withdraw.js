@@ -2,7 +2,7 @@ const Withdraw = (userMicroservice) => {
   const operations = { PUT };
   function PUT(req, res, next) {
     const { amount, currency } = req.body;
-    const { token } = req.headers;
+    const { token } = req.cookies;
     userMicroservice
       .withdraw(token, currency, amount)
       .then(() => {

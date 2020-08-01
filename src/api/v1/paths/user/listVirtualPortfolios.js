@@ -1,7 +1,7 @@
 const ListVirtualPortfolios = (userMicroservice) => {
   const operations = { GET };
   function GET(req, res, next) {
-    const { token } = req.headers;
+    const { token } = req.cookies;
     userMicroservice
       .listVirtualPortfolios(token)
       .then((data) => {

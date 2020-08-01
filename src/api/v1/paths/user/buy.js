@@ -2,7 +2,7 @@ const Buy = (userMicroservice) => {
   const operations = { POST };
   function POST(req, res, next) {
     const { amount, srcCurrency, destCurrency } = req.body;
-    const { token } = req.headers;
+    const { token } = req.cookies;
     userMicroservice
       .buy(token, srcCurrency, destCurrency, amount)
       .then(() => {

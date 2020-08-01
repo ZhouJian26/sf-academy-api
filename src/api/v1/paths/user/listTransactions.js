@@ -2,7 +2,7 @@ const ListTransactions = (userMicroservice) => {
   const operations = { GET };
   function GET(req, res, next) {
     const { queries } = req.body;
-    const { token } = req.headers;
+    const { token } = req.cookies;
     userMicroservice
       .listTransactions(token, queries)
       .then((data) => {
