@@ -29,7 +29,6 @@ initialize({
   apiDoc: join(__dirname, "./api/v1/api-doc.yml"),
   securityHandlers: securityHandlers,
   dependencies: {
-    log: console.log,
     exchangeMicroservice: new exchangeMicroservice(process.env.EXCHANGE_URL),
     userMicroservice: new userMicroservice(process.env.USER_URL),
   },
