@@ -1,14 +1,14 @@
-"use strict";
-const express = require("express");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const { initialize } = require("express-openapi");
-const { join } = require("path");
+'use strict';
+const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const {initialize} = require('express-openapi');
+const {join} = require('path');
 
-require("dotenv").config();
+require('dotenv').config();
 
-const exchangeMicroservice = require("./services/exchange");
-const userMicroservice = require("./services/user");
+const exchangeMicroservice = require('./services/exchange');
+const userMicroservice = require('./services/user');
 
 const app = express();
 app.use(cookieParser());
@@ -26,15 +26,16 @@ initialize({
   errorMiddleware: (err, req, res, next) => {
     res.json(err);
   },
-  apiDoc: join(__dirname, "./api/v1/api-doc.yml"),
+  apiDoc: join(__dirname, './api/v1/api-doc.yml'),
   securityHandlers: securityHandlers,
   dependencies: {
-    exchangeMicroservice: new exchangeMicroservice(process.env.EXCHANGE_URL),
-    userMicroservice: new userMicroservice(process.env.USER_URL),
+    exchangeMicroservice:
+        new exchangeMicroservice('exchange_microservice:9000'),
+    userMicroservice: new userMicroservice('user_microservice:9001'),
   },
-  paths: __dirname + "/api/v1/paths",
+  paths: __dirname + '/api/v1/paths',
 });
 
 app.listen(3000, () => {
-  console.log("api listening on port 3000");
+  console.log('api listening on port 3000');
 });

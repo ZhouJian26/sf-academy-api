@@ -1,35 +1,34 @@
 const ListVirtualPortfolios = (userMicroservice) => {
-  const operations = { GET };
+  const operations = {GET};
   function GET(req, res, next) {
-    const { token } = req.cookies;
-    userMicroservice
-      .listVirtualPortfolios(token)
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => res.status(400).json({ message: err.details }));
+    const {token} = req.cookies;
+    userMicroservice.listVirtualPortfolios(token)
+        .then((data) => {
+          res.json(data);
+        })
+        .catch((err) => res.status(400).json({message: err.details}));
   }
   GET.apiDoc = {
-    tags: ["user"],
-    description: "Get user virtual portfolios",
-    summary: "Get user virtual portfolios",
-    operationId: "userListVirtualPortfolio",
-    produces: ["application/json"],
-    security: [{ JWTAuth: [] }],
+    tags: ['user'],
+    description: 'Get user virtual portfolios',
+    summary: 'Get user virtual portfolios',
+    operationId: 'userListVirtualPortfolio',
+    produces: ['application/json'],
+    security: [{JWTAuth: []}],
     responses: {
       200: {
-        description: "Successful operation",
+        description: 'Successful operation',
         schema: {
-          type: "object",
+          type: 'object',
           properties: {
             listVirtualPortfolio: {
-              type: "array",
+              type: 'array',
               items: {
-                type: "object",
+                type: 'object',
                 properties: {
-                  currency: { type: "string" },
-                  balance: { type: "number" },
-                  date: { type: "string", format: "date-time" },
+                  currency: {type: 'string'},
+                  balance: {type: 'number'},
+                  date: {type: 'string'},
                 },
               },
             },
@@ -37,9 +36,9 @@ const ListVirtualPortfolios = (userMicroservice) => {
         },
       },
       default: {
-        description: "An error occurred",
+        description: 'An error occurred',
         schema: {
-          $ref: "#definitions/Error",
+          $ref: '#definitions/Error',
         },
       },
     },

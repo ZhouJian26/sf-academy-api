@@ -28,8 +28,8 @@ const ListTransactions = (userMicroservice) => {
     parameters: [
       { in: "query", name: "srcCurrency", type: "string" },
       { in: "query", name: "destCurrency", type: "string" },
-      { in: "query", name: "startDate", type: "string", format: "date-time" },
-      { in: "query", name: "endDate", type: "string", format: "date-time" },
+      { in: "query", name: "startDate", type: "string" },
+      { in: "query", name: "endDate", type: "string"},
     ],
     responses: {
       200: {
